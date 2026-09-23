@@ -62,3 +62,14 @@ Claude Code (Anthropic) was used to scaffold the full initial implementation inc
 - Local models via Ollama would need a different server endpoint; the validation layer would matter more with smaller models
 - No session persistence — refreshing the page clears your progress
 
+## Time spent
+
+| Task | Time |
+|------|------|
+| Architecture and setup | ~45 min |
+| Express API + validation | ~1 hr |
+| React components (flashcards, quiz, results) | ~2.5 hr |
+| CSS (responsive, dark mode, animations) | ~1 hr |
+| Error handling + edge cases | ~1 hr |
+| README | ~30 min |
+| **Total** | **~7 hr** |
