@@ -113,12 +113,21 @@ app.post('/api/generate', async (req, res) => {
       contents: buildPrompt(text.trim()),
       config: {
         responseMimeType: 'application/json',
-        temperature: 0.7,
+        // Disable thinking tokens — they appear before the JSON and break parsing
+        thinkingConfig: { thinkingBudget: 0 },
         maxOutputTokens: 2048,
       },
     })
 
-    const rawText = result.text
+    // result.text can be a string or a function depending on SDK version
+    const rawText = typeof result.text === 'function' ? result.text() : result.text
+
+    if (!rawText || !rawText.trim()) {
+      console.error('Empty response from model')
+      return res.status(502).json({ error: 'The AI returned an empty response. Please try again.' })
+    }
+
+    console.log('Raw response preview:', rawText.slice(0, 200))
 
     let parsed
     try {
